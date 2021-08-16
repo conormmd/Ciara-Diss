@@ -1,6 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
 from scipy import stats
+
+matplotlib.rcParams['mathtext.fontset'] = 'stix';matplotlib.rcParams['font.family'] = 'arial';
+plt.rcParams.update({'font.size': 12})
 
 raw_data = np.loadtxt('data.txt')
 data = np.zeros((10,np.shape(raw_data)[0]))
@@ -13,6 +17,7 @@ data[5]=(raw_data[:,17]+raw_data[:,18]+raw_data[:,19]+raw_data[:,14]+raw_data[:,
 data[6]=(raw_data[:,20]+raw_data[:, 21]+raw_data[:,22])/3#Behav Intent
 data[7]=(raw_data[:,25]+raw_data[:,24]+raw_data[:,23])/3#Behav
 data_labels=['Gender','Generation','Race','Individual Attitude','Subjective Norm','Percieved Behavioural Control','Behavioural Intention','Behaviour']
+data_labels_short=['Gender','Generation','Race','IA','SN','PBC','BI','Behaviour']
 data_colours=['black','black','black','red','darkgreen','deepskyblue','black','black']
 data_size = [10,10,10,20,45,30,10,10]
 data_marker = ['o','o','o','o','+','x','o','o']
@@ -34,11 +39,13 @@ for i in range(N_nw):
 ###All
 #All Factors vs BI (raw)
 for i in range(3,6):
-    plt.scatter(data[:,i],data[:,6],label=data_labels[i],color=data_colours[i],s=data_size[i],marker=data_marker[i])
-plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Factors effecting BI');plt.ylabel('BI');plt.title('All (raw)');plt.legend();plt.show()
+    plt.scatter(data[:,i],data[:,6],label=data_labels_short[i],color=data_colours[i],s=data_size[i],marker=data_marker[i])
+plt.xticks([1,2,3,4,5],['1','2','3','4','5']);plt.yticks([1,2,3,4,5],['1','2','3','4','5'])
+plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Factors affecting BI');plt.ylabel('BI');plt.title('All (raw)');plt.legend();plt.show()
 
 #ALL BI vs Behav (raw)
 plt.scatter(data[:,6],data[:,7],marker='x')
+plt.xticks([1,2,3,4,5],['1','2','3','4','5']);plt.yticks([1,2,3,4,5],['1','2','3','4','5'])
 plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('BI');plt.ylabel('Behaviour');plt.title('All (raw)');plt.legend();plt.show()
 
 #All FActors vs BI (trend)
@@ -47,7 +54,8 @@ for i in range(3,6):
     x=np.array([1,2,3,4,5])
     y=slope*x+intercept
     plt.plot(x,y,label=data_labels[i],color=data_colours[i])
-plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Factors effecting BI');plt.ylabel('BI');plt.title('All (trend line)');plt.legend();plt.show()
+plt.xticks([1,2,3,4,5],['1','2','3','4','5']);plt.yticks([1,2,3,4,5],['1','2','3','4','5'])
+plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Factors affecting BI');plt.ylabel('BI');plt.title('All (trend line)');plt.legend();plt.show()
 
 ##Race
 
@@ -66,7 +74,8 @@ x=np.array([1,2,3,4,5])
 y=result.slope*x+result.intercept
 plt.plot(x,y,label='Not White')
 plt.title('White vs Not White')
-plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Behavioural Intent');plt.ylabel('Behaviour');plt.legend();plt.show()
+plt.xticks([1,2,3,4,5],['1','2','3','4','5']);plt.yticks([1,2,3,4,5],['1','2','3','4','5'])
+plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Behavioural Intention');plt.ylabel('Behaviour');plt.legend();plt.show()
 
 #White (Factors vs BI)
 for i in range(3,6):
@@ -74,14 +83,16 @@ for i in range(3,6):
     x=np.array([1,2,3,4,5])
     y=slope*x+intercept
     plt.plot(x,y,label=data_labels[i],color=data_colours[i])
-plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Factors effecting BI');plt.ylabel('BI');plt.title('White');plt.legend();plt.show()
+plt.xticks([1,2,3,4,5],['1','2','3','4','5']);plt.yticks([1,2,3,4,5],['1','2','3','4','5'])
+plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Factors affecting BI');plt.ylabel('BI');plt.title('White');plt.legend();plt.show()
 #Not White (Factors vs BI)
 for i in range(3,6):
     slope,intercept,r_value,p_value,std_err=stats.linregress(not_white[:,i],not_white[:,6])
     x=np.array([1,2,3,4,5])
     y=slope*x+intercept
     plt.plot(x,y,label=data_labels[i],color=data_colours[i])
-plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Factors effecting BI');plt.ylabel('BI');plt.title('Not White');plt.legend();plt.show()
+plt.xticks([1,2,3,4,5],['1','2','3','4','5']);plt.yticks([1,2,3,4,5],['1','2','3','4','5'])
+plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Factors affecting BI');plt.ylabel('BI');plt.title('Not White');plt.legend();plt.show()
  
 #Perc behav vs Behav
 slope,intercept,r_value,p_value,std_err=stats.linregress(white[:,5],white[:,7])
@@ -92,4 +103,5 @@ slope,intercept,r_value,p_value,std_err=stats.linregress(not_white[:,5],not_whit
 x=np.array([1,2,3,4,5])
 y=slope*x+intercept
 plt.plot(x,y,label='Not White')
-plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Percieved Behavioural Control');plt.ylabel('Behaviour');plt.legend();plt.show()
+plt.xticks([1,2,3,4,5],['1','2','3','4','5']);plt.yticks([1,2,3,4,5],['1','2','3','4','5'])
+plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Percieved Behavioural Control');plt.ylabel('Behaviour');plt.title('White vs Not White PBC');plt.legend();plt.show()
