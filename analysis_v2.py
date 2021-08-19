@@ -43,8 +43,12 @@ for i in range(3,6):
 plt.xticks([1,2,3,4,5],['1','2','3','4','5']);plt.yticks([1,2,3,4,5],['1','2','3','4','5'])
 plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Factors affecting BI');plt.ylabel('BI');plt.title('All (raw)');plt.legend();plt.show()
 
-#ALL BI vs Behav (raw)
+#ALL BI vs Behav (raw with trend)
 plt.scatter(data[:,6],data[:,7],marker='x')
+slope,intercept,r_value,p_value,std_err=stats.linregress(data[:,6],data[:,7])
+x=np.array([1,2,3,4,5])
+y=slope*x+intercept
+plt.plot(x,y)
 plt.xticks([1,2,3,4,5],['1','2','3','4','5']);plt.yticks([1,2,3,4,5],['1','2','3','4','5'])
 plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('BI');plt.ylabel('Behaviour');plt.title('All (raw)');plt.legend();plt.show()
 
@@ -105,3 +109,10 @@ y=slope*x+intercept
 plt.plot(x,y,label='Not White')
 plt.xticks([1,2,3,4,5],['1','2','3','4','5']);plt.yticks([1,2,3,4,5],['1','2','3','4','5'])
 plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Percieved Behavioural Control');plt.ylabel('Behaviour');plt.title('White vs Not White PBC');plt.legend();plt.show()
+#PBC vs Behav All
+slope,intercept,r_value,p_value,std_err=stats.linregress(data[:,5],data[:,7])
+x=np.array([1,2,3,4,5])
+y=slope*x+intercept
+plt.plot(x,y)
+plt.xticks([1,2,3,4,5],['1','2','3','4','5']);plt.yticks([1,2,3,4,5],['1','2','3','4','5'])
+plt.xlim(1,5);plt.ylim(1,5);plt.xlabel('Percieved Behavioural Control');plt.ylabel('Behaviour');plt.title('All PBC');plt.legend();plt.show()
